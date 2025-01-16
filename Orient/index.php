@@ -1,17 +1,20 @@
 <?php
 session_start();
 $loggedIn = isset($_SESSION['user_id']);
+require_once "./chat.php";
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ORIENT - Chatbot</title>
     <link rel="stylesheet" href="css/chat.css">
-   
+
 </head>
+
 <body>
     <header>
         <h1>ORIENT</h1>
@@ -20,10 +23,12 @@ $loggedIn = isset($_SESSION['user_id']);
 
     <main>
         <div id="chat-interface">
-            <div id="messages"></div>
-            <form id="chat-form" action="./chat.php" method="POST">
+            <div id="messages">
+                <?= $response ?? "" ?>
+            </div>
+            <form id="chat-form" method="POST">
                 <input type="text" id="user-message" name="user_message" placeholder="Posez votre question..." required>
-                <button type="submit" id="send-btn">Envoyer</button>
+                <button type="submit">Envoyer</button>
             </form>
         </div>
 
@@ -38,4 +43,5 @@ $loggedIn = isset($_SESSION['user_id']);
     </main>
     <script src="js/animation.js" defer></script>
 </body>
+
 </html>

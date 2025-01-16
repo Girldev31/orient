@@ -7,17 +7,16 @@ $conn = connect_db();
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    var_dump($_POST('send-btn'));
-    $question = trim($_POST['send-btn']);
+    $question = trim($_POST['user_message']);
     $response = '';
 
     if (!empty($question)) {
         try {
-           
+
             $query = "
-                SELECT filiere.name, filiere.description 
+                SELECT filieres.name, filieres.description 
                 FROM mots_cles
-                INNER JOIN filiere ON mots_cles.id_filiere = filiere.id_filiere 
+                INNER JOIN filieres ON mots_cles.filiere_id = filieres.id
                 WHERE :question LIKE CONCAT('%', mots_cles.keyword, '%')
             ";
 
@@ -41,8 +40,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $response = "Veuillez poser une question.";
     }
-
-    
-    echo "Bonjour !!";
 }
-?>
